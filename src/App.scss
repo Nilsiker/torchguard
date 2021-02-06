@@ -1,5 +1,8 @@
+
+
 .App {
   text-align: center;
+  
 }
 
 .App-logo {
@@ -13,15 +16,12 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
+.App {
+  background: url('/img/parchment.png');
+  
+  background-size: auto;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  color: #16161D;
 }
 
 .App-link {

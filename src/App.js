@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { Col, Container, Row } from 'react-bootstrap';
+import './App.scss'
+import './MouseGuard.scss'
+import Sheet from './components/MouseGuard/Sheet';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import Recruitment from './components/MouseGuard/Recruitment';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Container>
+          <Router>
+            <Switch>
+              <Route path="/recruitment" component={Recruitment} />
+              <Route path="/" component={Sheet} />
+            </Switch>
+          </Router>
+      </Container>
+
     </div>
   );
 }

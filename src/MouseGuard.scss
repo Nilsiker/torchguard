@@ -1,0 +1,36 @@
+body {
+    font-family: Times, serif;
+
+}
+
+.text-darkred {
+    color: darkred;
+    font-weight: 600;
+}
+
+.text-sub {
+    font-size: calc(10px + 1vh);
+}
+
+.sheet {
+    color: black;
+
+    h1 {
+        font-weight: 900;
+    }
+
+    h2 {
+        font-weight: 800;
+    }
+
+    h3 {
+        color: darkred;
+        font-weight: 600;
+    }
+}
+
+.recruit-form {
+    font-size: calc(10px + 3vh);
+    max-width: 400px;
+    font-weight: 900;
+}
