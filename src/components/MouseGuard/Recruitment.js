@@ -1,7 +1,6 @@
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button, Col } from "react-bootstrap"
-import { Route, Switch } from "react-router-dom"
 import RecruitForm from "./RecruitForm"
 
 const ranks = {
@@ -14,7 +13,7 @@ const ranks = {
         skills: {
             Pathfinder: 2,
             Scout: 2,
-            Labourer: 2
+            Laborer: 2
         },
         minAge: 14,
         maxAge: 17
@@ -205,8 +204,45 @@ const skillset = {
     Smith: 0,
     Stonemason: 0,
     Survivalist: 0,
-    WeatherWatcher: 0,
+    "Weather Watcher": 0,
     Weaver: 0,
+}
+
+const skillInfo = {
+    Administrator: "An administrator manages settlements, writes laws, allocates budgets, files reports and distributes resources.",
+    Apiarist: "An apiarist raises bees for honey and wax.",
+    Archivist: "An archivist specializes in writing and scouring accounts of events for historical records.",
+    Armorer: "An armorer forges armor and weapons for the Guard and town militias.",
+    Baker: "A baker makes bread, cookies and cakes.",
+    Boatcrafter: "A boatcrafter can craft boats and navigate waterways.",
+    Brewer: "A brewer makes beer and other drinks from grains and fruits.",
+    Carpenter: "A carpenter makes items out of wood, like chairs, doors and ladders.",
+    Cartographer: "A cartographer creates and interprets maps.",
+    Cook: "A cook makes hunger go away with savoury dishes.",
+    Fighter: "A fighter can disable or kill opponents, using their bare paws or weapons",
+    Glazier: "A glazier makes glass vessels, window panes and lenses.",
+    Haggler: "A haggler bargains over prices of goods and services.",
+    Harvester: "A harvester make forays into the wilds to gather grains, seeds, roots, herbs and other necessities.",
+    Healer: "A healer keeps mice whole and healthy.",
+    Hunter: "A hunter stalks, traps, drives off and kills his quarry",
+    Insectrist: "An insectrist uses and trains insects to act as labor, spin silk or aerate soil.",
+    Instructor: "An instructor knows how to transmit skills to other mice.",
+    Laborer: "A laborer gathers wood for carpenters, stone for masons and metal for smiths. They dig ditches and carry stuff.",
+    Loremouse: "TODO",
+    Manipulator: "TODO",
+    Militarist: "TODO",
+    Miller: "TODO",
+    Orator: "TODO",
+    Pathfinder: "TODO",
+    Persuader: "TODO",
+    Potter: "TODO",
+    Scientist: "TODO",
+    Scout: "TODO",
+    Smith: "TODO",
+    Stonemason: "TODO",
+    Survivalist: "TODO",
+    WeatherWatcher: "TODO",
+    Weaver: "TODO",
 }
 
 const parentSkills = [
@@ -265,49 +301,100 @@ const specialtySkills = [
 ]
 
 const Recruitment = () => {
+    // #region States and handles
     const [step, setStep] = useState(1)
     /////// STEP 1
     // Concept
     const [concept, setConcept] = useState("")
     const handleConcept = (e) => {
-        console.log(e.target.value)
+        console.log("Concept: " + e.target.value)
         setConcept(e.target.value)
     }
     // Guard Rank 
-    const [rank, setRank] = useState(ranks.Tenderpaw)
+    const [rank, setRank] = useState("Tenderpaw")
     const handleRank = (e) => {
-        console.log(e.target.value)
-        setRank(ranks[e.target.value])
+        console.log("Rank: " + e.target.value)
+        setRank(e.target.value)
     }
     // SKILLS
     const [skills, setSkills] = useState(skillset)
-    const handleSkills = (e) => {
-        // TODO probably last!
-    }
     /////// STEP 2
     // Where were you born?
-    const [home, setHome] = useState(homes["Barkstone"])
+    const [home, setHome] = useState("Barkstone")
     const handleHome = (e) => {
-        console.log(e.target.value)
-        setHome(homes[e.target.value])
+        console.log("Home:" + e.target.value)
+        setHome(e.target.value)
     }
     //// Life experience
     // Pick an area in which you're naturally talented 
     const [talent, setTalent] = useState("Administrator")
     const handleTalent = (e) => {
-        console.log(e.target.value)
+        console.log("Talent: " + e.target.value)
         setTalent(e.target.value)
     }
+    const [secondTalent, setSecondTalent] = useState("Apiarist")    // Tenderpaws and Guard Captains get two!
+    const handleSecondTalent = (e) => {
+        console.log("Second talent: " + e.target.value)
+        setSecondTalent(e.target.value)
+    }
     // What was your parents trade?
-    const [parentTrade, setParentTrade] = useState(null)
+    const [parentTrade, setParentTrade] = useState("Apiarist")
+    const handleParentTrade = (e) => {
+        console.log("Parent trade: " + e.target.value)
+        setParentTrade(e.target.value)
+    }
     // How do you convince people that you're right or to do what you need?
-    const [social, setSocial] = useState(null)
+    const [social, setSocial] = useState("Manipulator")
+    const handleSocial = (e) => {
+        console.log("Social skill: " + e.target.value)
+        setSocial(e.target.value)
+    }
     // With whom did you apprentice for the Guard? What was that mouse's trade?
-    const [apprentice, setApprentice] = useState(null)
+    const [apprentice, setApprentice] = useState("Apiarist")
+    const handleApprentice = (e) => {
+        console.log("Apprentice skill: " + e.target.value)
+        setApprentice(e.target.value)
+    }
     // What did your mentor stress in training
-    const [mentor, setMentor] = useState(null)
+    const [mentor, setMentor] = useState(mentorSkills[0])
+    const handleMentor = (e) => {
+        console.log("Mentor: " + e.target.value)
+        setMentor(e.target.value)
+    }
     // What's your specialty?
-    const [specialty, setSpecialty] = useState(null)
+    const [specialty, setSpecialty] = useState(specialtySkills[0])
+    const handleSpecialty = (e) => {
+        console.log("Specialty: " + e.target.value)
+        setSpecialty(e.target.value)
+    }
+
+
+    useEffect(() => {
+        const newSkills = { ...skillset }
+        Object.keys(ranks[rank].skills).forEach(skill => {
+            newSkills[skill]++
+        });
+        // TODO add home selection
+        newSkills[talent]++;
+        //newTally[secondTalent]++;
+        newSkills[parentTrade]++;
+        newSkills[social]++;
+        newSkills[apprentice]++;
+        newSkills[mentor]++;
+        newSkills[specialty]++;
+
+        Object.keys(newSkills).forEach(skill => {
+            if (newSkills[skill] > 0) newSkills[skill]++
+        }, [rank, talent, parentTrade, social, apprentice, mentor, specialty]);
+
+
+        console.log(newSkills)
+        setSkills(newSkills)
+    }, [rank, talent, parentTrade, social, apprentice, mentor, specialty])
+
+
+
+
     // Mouse nature
     const [nature, setNature] = useState(3)
     // Being wise (tender guard - 1, patrolguard 2, patrolleader 3, guardcap 4)
@@ -344,45 +431,115 @@ const Recruitment = () => {
     const [gear, setGear] = useState([])
     const fate = 1
     const persona = 1
+    //#endregion
 
+    return (<Col lg={6} className="mx-auto">
+        {
+            (step === 1 && <>
+                <RecruitForm
+                    title="Concept"
+                    heading="Are you a grizzled veteran, a young upstart or something in between? What's your personality? What's your specialty?"
+                    placeholder={concept.length !== 0 ? concept : "Write freely..."}
+                    handle={handleConcept}
+                    current={concept} />
+            </>)
+            || (step === 2 && <>
+                <RecruitForm dropdown
+                    title="Guard Rank"
+                    heading="What level of experience or rank would you like to play?"
+                    options={Object.keys(ranks)}
+                    handle={handleRank}
+                    current={rank}
+                />
+                <h2>{ranks[rank].info}</h2>
+            </>)
+            || (step === 3 && <>
+                <RecruitForm dropdown
+                    title="Home"
+                    heading="In what town or city were you born?"
+                    options={Object.keys(homes)}
+                    handle={handleHome}
+                    current={home}
+                />
+                <h2>{homes[home].info}</h2>
+            </>)
+            || (step === 4 && <>
+                <RecruitForm dropdown
+                    title="Skill"
+                    heading="Pick an area in which you're naturally talented."
+                    options={Object.keys(skillset)}
+                    handle={handleTalent}
+                    current={talent}
+                />
+                <p>{skillInfo[talent]}</p>
+                {(rank === "Tenderpaw" || rank === "Guard Captain") &&
+                    <><RecruitForm dropdown
+                        title="Skill"
+                        heading={"As a " + rank + ", you get an additional talent!"}
+                        options={Object.keys(skillset)}
+                        handle={handleSecondTalent}
+                        current={secondTalent}
+                    />
+                        <p>{skillInfo[secondTalent]}</p>
+                    </>
+                }
 
-    return (<Col className="mx-auto">
-        {step === 1 &&
-            <RecruitForm text
-                title="Concept"
-                subtext="Are you a grizzled veteran, a young upstart or something in between? What's your personality? What's your specialty?"
-                onChange={handleConcept}
-            />}
-        {step === 2 && <>
-            <RecruitForm dropdown
-                title="Guard Rank"
-                subtext="What level of experience or rank would you like to play?"
-                options={Object.keys(ranks)}
-                onChange={handleRank}
-            />
-            <h2>{rank.info}</h2>
-        </>
+            </>)
+            || (step === 5 && <>
+                <RecruitForm dropdown
+                    title="Skill"
+                    heading="What was your parents' trade?"
+                    options={parentSkills}
+                    handle={handleParentTrade}
+                    current={parentTrade} />
+                <p>{skillInfo[parentTrade]}</p>
+            </>)
+            || (step === 6 && <>
+                <RecruitForm dropdown
+                    title="Skill"
+                    heading="How do you convince people that you're right or to do what you need?"
+                    options={["Manipulator", "Orator", "Persuader"]}
+                    handle={handleSocial}
+                    current={social} />
+                <p>{skillInfo[social]}</p>
+            </>)
+            || (step === 7 && <>
+                <RecruitForm dropdown
+                    title="Skill"
+                    heading="With whom did you apprentice for the Guard? What was that mouse's trade?"
+                    options={apprenticeSkills}
+                    handle={handleApprentice}
+                    current={apprentice} />
+                <p>{skillInfo[apprentice]}</p>
+            </>)
+            || (step === 8 && <>
+                <RecruitForm dropdown
+                    title="Skill"
+                    heading="What did your mentor stress during training?"
+                    options={mentorSkills}
+                    handle={handleMentor}
+                    current={mentor} />
+                <p>{skillInfo[mentor]}</p>
+            </>)
+            || (step === 9 && <>
+                <RecruitForm dropdown
+                    title="Skill"
+                    heading="What's your specialty?"
+                    options={specialtySkills}
+                    handle={handleSpecialty}
+                    current={specialty} />
+                <p>{skillInfo[specialty]}</p>
+            </>)
+            || (step === 10 &&
+                <>
+                <h1>Skill Tally</h1>
+                {Object.keys(skills).map(s => {
+                    return skills[s] > 0 ? <h3>{s + " " + skills[s]}</h3> : <></>
+                })
+                }</>
+            )
         }
-        {step === 3 && <>
-            <RecruitForm dropdown
-                title="Where were you born?"
-                subtext="Choose a mouse town or city in which your character was born."
-                options={Object.keys(homes)}
-                onChange={handleHome}
-            />
-            <h2>{home.info}</h2>
-        </>
-        }
-        {step === 4 && <>
-            <RecruitForm buttons
-                title="Pick an area in which you're naturally talented."
-                subtext="Tenderpaws and guard captains choose two. Guardmice, patrol guard and patrol leaders choose one."
-                options={Object.keys(skillset)}
-                onChange={handleTalent}
-                limit={(rank === "Tenderpaw" || rank === "Guard Captain") ? 2 : 1}
-            />
-            <h2>{home.info}</h2>
-        </>}
+
 
         {step > 1 && <Button variant="secondary" onClick={() => setStep(step - 1)}>Previous</Button>}
         <Button variant="primary" onClick={() => setStep(step + 1)}>Next</Button>

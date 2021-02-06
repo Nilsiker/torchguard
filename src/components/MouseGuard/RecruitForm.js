@@ -1,27 +1,29 @@
-import { Button, ButtonGroup, Form } from "react-bootstrap"
+import { useState } from "react"
+import { Form, FormControl, InputGroup, } from "react-bootstrap"
 
-const RecruitForm = ({ text, dropdown, buttons, title, subtext, options, limit, onChange }) => {
-        return (
-            <Form className="recruit-form mx-auto">
-                <Form.Group>
-                    <Form.Label>{title}</Form.Label>
-                    <Form.Label className="recruit-label text-darkred text-sub">
-                        {subtext}
-                    </Form.Label>
+const RecruitForm = ({title, dropdown, heading, options, placeholder, current, handle }) => {
 
-                    {buttons && <ButtonGroup vertical>
-                        {options.map(b => <Button value={b} onClick={onChange}>{b}</Button>)}
-                    </ButtonGroup>}
+    return (<>
+        <Form className="recruit-form mx-auto">
+            <Form.Label className="recruit-label text-darkred text-sub">
+                {heading}
+            </Form.Label>
+            <InputGroup>
+                <InputGroup.Prepend>
+                    <InputGroup.Text>{title}</InputGroup.Text>
+                </InputGroup.Prepend>
+                {
+                    dropdown
+                        ? <FormControl value={current} as="select" size="lg" className="recruit-textinput" onChange={handle}>
+                            {options.map(o => <option key={o}>{o}</option>)}
+                        </FormControl>
 
-                    {dropdown && <Form.Control as="select" size="lg" className="recruit-textinput" onChange={onChange}>
-                        {options.map(o => <option>{o}</option>)}
-                    </Form.Control>}
-
-                    {text && <Form.Control size="lg" className="recruit-textinput" onChange={onChange} />}
-
-                </Form.Group>
-            </Form>
-        )
+                        : <FormControl type="textarea" onChange={handle} size="lg" placeholder={placeholder} className="recruit-textinput" />
+                }
+            </InputGroup>
+        </Form>
+    </>
+    )
 }
 
 export default RecruitForm
