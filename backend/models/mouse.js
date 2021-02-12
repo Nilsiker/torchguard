@@ -260,10 +260,10 @@ const mouseSchema = new mongoose.Schema({
         usedAgainst: Number
     },
     contacts: [String],
-    user: [{
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    }
 })
 
 // mouseSchema.set('toJSON', {

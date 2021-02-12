@@ -1,5 +1,9 @@
 {
   "name": "torchguard-backend",
+  "jest": {
+    "verbose": true,
+    "testEnvironment" : "node"
+  },
   "version": "1.0.0",
   "description": "An Express backend for handling persistency layer for the Torchguard webapp.",
   "main": "index.js",

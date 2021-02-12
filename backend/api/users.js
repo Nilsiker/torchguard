@@ -4,8 +4,10 @@ const User = require('../models/user')
 
 // get all users
 usersRouter.get('/', (req, res, next) => {
-    User.find({})
-        .then(users => res.json(users))
+    User.find({}).populate('mice', 'name')
+        .then(users => {
+            res.json(users)
+        })
 })
 
 usersRouter.post('/', async (request, response, next) => {
@@ -19,8 +21,7 @@ usersRouter.post('/', async (request, response, next) => {
 
         const user = new User({
             username: body.username,
-            passwordHash,
-            mice: []
+            passwordHash
         })
 
         await user.save()
