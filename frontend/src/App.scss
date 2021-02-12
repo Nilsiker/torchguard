@@ -5,6 +5,14 @@
   
 }
 
+.header {
+  height: 8vh
+}
+
+.content {
+  min-height: 82vh
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -14,6 +22,10 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+.hide-arrow > .dropdown-toggle::after {
+  display: none;
 }
 
 body {

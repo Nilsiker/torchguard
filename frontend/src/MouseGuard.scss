@@ -1,3 +1,10 @@
+$moss: #16551D88;
+$red:rgb(126, 91, 91);
+$background: rgb(82, 79, 70);
+$dark: #222222;
+$light: rgb(116, 111, 111);
+$input: rgb(201, 211, 197);
+
 body {
     font-family: Times, serif;
     background: url('img/map.jpg');
@@ -14,40 +21,49 @@ body {
 }
 
 .bg-mg {
-    background-color: rgb(82, 79, 70);
+    background-color: $background;
     color: white;
 }
 
 .border-mg {
-    border:solid 10px #222222
+    border: solid 10px $dark
 }
 
 .btn-mg {
-    background-color: rgb(126, 91, 91);
+    background-color: $red;
     color: white;
-    border:solid 1px;
+    border: solid 1px;
 }
 
 .btn-mg:active {
     color: black;
-    background-color: #222222;
+    background-color: $dark;
 }
 
 .input-mg {
-    background-color: rgb(201, 211, 197);
+    background-color: $input;
     color: black;
-    border:solid 1px;
+    border: solid 1px;
     border-color: white;
 }
 
-.textarea-mg{
-    background-color:rgb(116, 111, 111);
-    border:solid 1px white;
+.textarea-mg {
+    background-color: $light;
+    border: solid 1px white;
     color: white
 }
 
+.dropdown-item.active {
+    background-color: $background;
+    color: white
+}
+
+.dropdown-item:active {
+    background-color: $light;
+}
+
 .sheet {
-    color: black;
+    color: darkgrey;
 
     h1 {
         font-weight: 900;
@@ -58,7 +74,7 @@ body {
     }
 
     h3 {
-        color: darkred;
+        color: white;
         font-weight: 600;
     }
 }
