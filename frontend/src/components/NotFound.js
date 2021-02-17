@@ -4,7 +4,7 @@ const NotFound = () => {
 
 
     return (
-        <Card className="mt-5 p-5 bg-mg text-light" >
+        <Card className="mt-5 p-5 bg-common text-light" >
             <Card.Title className="text-light"><h1>Error 404</h1></Card.Title>
             <hr style={{ borderColor: "white" }} />
             <Card.Body>

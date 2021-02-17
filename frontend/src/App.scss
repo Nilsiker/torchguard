@@ -1,50 +1,266 @@
+$moss: #526855;
+$red:rgb(126, 91, 91);
+$background: rgb(82, 79, 70);
+$dark: #222222;
+$light: rgb(116, 109, 96);
+$input: rgb(201, 211, 197);
 
-
-.App {
-  text-align: center;
-  
+::-webkit-scrollbar {
+  width: 10px;
 }
 
-.header {
-  height: 8vh
+::-webkit-scrollbar-track {
+  background: $dark;
 }
 
-.content {
-  min-height: 82vh
+::-webkit-scrollbar-thumb {
+  background: $background;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.hide-arrow > .dropdown-toggle::after {
-  display: none;
+::-webkit-scrollbar-thumb:hover {
+  background: $background;
 }
 
 body {
-  background: url('/img/parchment.png');
-  
-  background-size: auto;
-  min-height: 100vh;
-  color: #16161D;
+  font-family: Times, serif;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('img/map.jpg');
+  background-size: contain;
+  overflow-y: scroll
 }
 
-.App-link {
-  color: #61dafb;
+.App {
+  text-align: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.btn-red {
+  background-color: $red;
+  color: white;
+  border: solid 1px;
+}
+
+.btn-moss {
+  background-color: $moss;
+  color: white;
+  border: solid 1px;
+}
+
+.btn-moss:hover {
+  background-color: $moss;
+  color: white;
+  border: solid 1px;
+  opacity: 85%;
+}
+
+.btn-moss:active,
+.btn-moss:focus {
+  background-color: $moss;
+  color: white;
+  border: solid 1px;
+  opacity: 70%;
+}
+
+.btn-red {
+  background-color: $red;
+  color: white;
+  border: solid 1px;
+}
+
+.btn-red:hover {
+  background-color: $red;
+  color: white;
+  border: solid 1px;
+  opacity: 80%;
+}
+
+.btn-red:active,
+.btn-red:focus {
+  background-color: $red;
+  color: white;
+  border: solid 1px;
+  opacity: 60%;
+  box-shadow: 0 0 0 0.2rem white;
+}
+
+.bg-common {
+  background-color: $background;
+  color: white;
+}
+
+.bg-red {
+  background-color: $red
+}
+
+.bg-moss {
+  background-color: $moss;
+}
+
+.bg-input {
+  background-color: $input;
+}
+
+.card-game {
+  width: 250px
+}
+
+.header {
+  height: 80px;
+}
+
+footer {
+  margin-bottom: 0;
+  margin-top: auto
+}
+
+.content {
+  min-height: calc(100vh - 160px)
+}
+
+// .navbar-toggler {
+//   background-color: white;
+// }
+
+// .navbar-toggler.collapsed {
+//   background-color: $input;
+// }
+
+.no-decoration {
+  text-decoration: none;
+}
+
+.no-decoration:hover {
+  text-decoration: none;
+}
+
+.text-title {
+  font-size: calc(2rem + 10px);
+  color: white;
+  text-shadow: 2px 2px black;
+}
+
+.text-darkred {
+  color: darkred;
+  font-weight: 600;
+}
+
+.text-sub {
+  font-size: calc(10px + 1vh);
+}
+
+
+
+.light {
+  background-color: $light !important;
+  color: white;
+}
+
+.moss {
+  background-color: $moss !important;
+  color: white;
+}
+
+.bg-lightgreen {
+  background-color: $light
+}
+
+.card-link:hover {
+  filter: brightness(70%)
+}
+
+.card-link:active {
+  filter: brightness(50%)
+}
+
+.hide-arrow>.dropdown-toggle::after {
+  display: none;
+}
+
+.border-dark {
+  border: solid 5px $dark !important;
+}
+
+.border-dark-y {
+  border-top: solid 5px $dark;
+  border-bottom: solid 5px $dark;
+}
+
+.btn-square {
+  height: 300px;
+  width: 300px;
+}
+
+
+.input-light {
+  background-color: $input;
+  color: black;
+  border: solid 1px;
+  border-color: white;
+}
+
+.modal-open {
+  overflow-y: scroll !important;
+  padding: 0px !important;
+  margin: 0px !important;
+  height: 100vh !important
+}
+
+.text-moss {
+  color: $moss
+}
+
+.text-red {
+  color: $red
+}
+
+.textarea-light {
+  background-color: $light;
+  border: solid 1px white;
+  color: white
+}
+
+.sheet {
+  color: darkgrey;
+
+  h1 {
+    font-weight: 900;
   }
-  to {
-    transform: rotate(360deg);
+
+  h2 {
+    font-weight: 800;
   }
+
+  h3 {
+    color: white;
+    font-weight: 600;
+  }
+}
+
+.recruit-form {
+  font-size: calc(10px + 3vh);
+  max-width: 500px;
+  font-weight: 900;
+  background-color: white;
+}
+
+.recruit-next {
+  background-color: green // TODO better marker later
+}
+
+.recruit-disabled {
+  filter: brightness(20%)
+}
+
+.infopane {
+  background-color: #16551D88;
+  color: white;
+  text-align: center;
+  height: 10vh;
+}
+
+.dropdown-item.active {
+  background-color: $background;
+  color: white
+}
+
+.dropdown-item:active {
+  background-color: $light;
 }

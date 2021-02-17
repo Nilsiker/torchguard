@@ -1,24 +1,24 @@
 
 import { useState } from "react"
-import { Button, ButtonGroup, Card, FormControl, InputGroup, ToggleButton, ToggleButtonGroup } from "react-bootstrap"
+import { Card, ToggleButton, ToggleButtonGroup } from "react-bootstrap"
 
-const TwoOption = ({ name, q, current, option1, option2, handle, disabled }) => {
-    const [value, setValue] = useState(-1)
+const TwoOption = ({ name, q, option1, option2, choice, handle, disabled }) => {
+    const [value, setValue] = useState(choice)
 
     return (<>
-        <Card className="textarea-mg my-3">
+        <Card className="textarea-light my-3" style={disabled ? { opacity: "5%" } : {}}>
             <Card.Body>
                 {q}
             </Card.Body>
             <Card.Footer>
                 <ToggleButtonGroup size="lg" name={name} radioGroup type="radio" onChange={handle}>
-                    <ToggleButton className={current === 1 ? "input-mg" : "btn-dark"} value={1}>{option1}</ToggleButton>
-                    <ToggleButton className={current === 2 ? "btn-mg" : "btn-dark"} value={2}>{option2}</ToggleButton>
+                    <ToggleButton variant="" name={name} className={value === 1 ? "btn-moss" : "btn-dark"} value={{ name, choice: 1 }} onClick={(e) => setValue(e.target.disabled ? -1 : 1)}>{option1}</ToggleButton>
+                    <ToggleButton variant="" name={name} className={value === 0 ? "btn-red" : "btn-dark"} value={{ name, choice: 0 }} onClick={(e) => setValue(e.target.disabled ? -1 : 0)}>{option2}</ToggleButton>
                 </ToggleButtonGroup>
             </Card.Footer>
         </Card>
     </>
     )
 }
- 
+
 export default TwoOption

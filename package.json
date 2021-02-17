@@ -1,0 +1,30 @@
+{
+  "name": "torchguard",
+  "jest": {
+    "verbose": true,
+    "testEnvironment": "node"
+  },
+  "version": "1.0.0",
+  "description": "The complete Torchguard stack",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently --kill-others \"npm run devb\" \"npm run devf\"",
+    "devb": "cd backend && npm run dev",
+    "devf": "cd frontend && npm start",
+    "test": "cd backend && npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nilsiker/torchguard.git"
+  },
+  "author": "Andreas Nilsson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Nilsiker/torchguard/issues"
+  },
+  "homepage": "https://github.com/Nilsiker/torchguard#readme",
+  "devDependencies": {
+    "concurrently": "^5.3.0"
+  },
+  "dependencies": {}
+}

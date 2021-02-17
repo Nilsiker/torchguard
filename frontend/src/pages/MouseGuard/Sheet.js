@@ -1,8 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Col, Jumbotron, Row } from 'react-bootstrap';
-import Contacts from './Contacts';
-import './GuardMouse'
-import GuardMouse from "./GuardMouse"
 
 const Sheet = () => {
     const [mouse, setMouse] = useState({})
@@ -14,7 +11,7 @@ const Sheet = () => {
             )
     })
 
-    return (<Jumbotron className="mt-3 sheet bg-mg border-mg">
+    return (<Jumbotron className="sheet bg-common border-dark-y">
         <Row>
             <Col>
                 <h1>{mouse.name}</h1>

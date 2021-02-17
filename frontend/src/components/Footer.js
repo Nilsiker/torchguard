@@ -1,14 +1,15 @@
-import { Button, Container, Form, FormControl, Nav, Navbar, NavDropdown } from "react-bootstrap"
+import { Container } from "react-bootstrap"
 
 const Footer = () => {
 
 
     return (
-        <footer className="fixed-bottom bg-mg pt-3 p-2">
+        <footer className="sticky-bottom bg-common pt-3 pb-0 p-2 border-dark-y">
             <Container>
-                <span className="textarea-mg">Andreas Nilsson © 2021</span>
+                <small>Andreas Nilsson © 2021
                 <br />
-                A huge thanks to Lorc and Delapouite, from game-icons.net for the amazing svg icons.
+                A huge thanks to Lorc, sbed and Delapouite, from game-icons.net for the amazing svg icons.
+                </small>
             </Container>
         </footer>
     )

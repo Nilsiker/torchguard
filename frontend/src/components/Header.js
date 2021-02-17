@@ -1,47 +1,53 @@
 
-import { Button, Form, FormControl, Nav, Navbar, NavDropdown } from "react-bootstrap"
-import Torch from '../img/torch.svg'
-import Mouse from '../img/mouse.svg'
-import { useState } from "react"
+import { Nav, Navbar, NavDropdown } from "react-bootstrap"
+import { Link } from 'react-router-dom'
+import Torchguard from '../img/torchguard-white.svg'
 import { User } from "react-feather"
+import LoginButton from "./LoginButton"
+import loginService from "../services/login"
+import NavbarCollapse from "react-bootstrap/esm/NavbarCollapse"
 
-const Header = () => {
-    const [game, setGame] = useState("mouseguard")
+const Header = ({ game }) => {
+
+
+    const handleSignOut = () => {
+        loginService.logout()
+        window.location.href = "/"
+    }
 
     return (
-
-        <Navbar className="header bg-mg text-light" expand="lg">
-            <Navbar.Brand className="text-light" href="/">Torchguard</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar className="bg-common text-light border-dark-y" expand="lg">
+            <Navbar.Brand className="text-light" href="/">Torchguard <img className="ml-2" src={Torchguard} height="50px" width="30px" alt="" /></Navbar.Brand>
+            <Navbar.Toggle className="btn-moss" aria-controls="basic-navbar-nav" />
+            <NavbarCollapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                    <NavDropdown
-                        className="bg-mg"
-                        title={game === "torchbearer"
-                            ? <img src={Torch} height="30px" width="30px" alt="" />
-                            : <img src={Mouse} height="30px" width="30px" alt="" />}>
-                        <NavDropdown.Item href="/tb">
-                            Torchbearer
-                        </NavDropdown.Item>
-                        <NavDropdown.Item href="/mg">
-                            Mouse Guard
-                    </NavDropdown.Item>
-                    </NavDropdown>
+                    <Nav.Link>
+                        <Link className="text-light" to="/about">
+                            About
+                        </Link>
+                    </Nav.Link>
+                    <Nav.Link>
+                        <Link className="text-light" to="/characters">
+                            Characters
+                        </Link>
+                    </Nav.Link>
                 </Nav>
-            </Navbar.Collapse>
-            <NavDropdown
-                alignRight
-                className="text-mg hide-arrow"
-                title={<><User size="25" color="white" /></>}
-                id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item>Logout</NavDropdown.Item>
-            </NavDropdown >
-        </Navbar >
+                {window.localStorage.getItem('token') === null
+                    ? <LoginButton styling="btn-moss" />
+                    : <NavDropdown
+                        alignRight
+                        className="hide-arrow"
+                        title={<><User size="25" color="white" /> <span className="text-light mt-3 font-family-arial">{window.localStorage.getItem('username').toUpperCase()}</span></>}
+                        id="basic-nav-dropdown">
+                        {/* <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                        <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+                        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item> */}
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item onClick={handleSignOut}>Logout</NavDropdown.Item>
+                    </NavDropdown >}
+            </NavbarCollapse>
 
+        </Navbar >
     )
 }
 
