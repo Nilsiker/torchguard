@@ -5,58 +5,64 @@ import { bornTraits, defaultChoice, parentTraits, ranks, roadTraits } from "../.
 import RecruitForm from "./RecruitForm"
 
 const WisesAndTraits = ({ states, handles }) => {
-    const [wises, setWises] = useState([])
+    const [nbrOfWises, setNbrOfWises] = useState(0)
     const [hasParentTrait, setHasParentTrait] = useState(false)
     const [hasRoadTrait, setHasRoadTrait] = useState(false)
 
     useEffect(() => {
         switch (states.rank) {
             case "Tenderpaw":
-                setWises([""])
+                setNbrOfWises(1)
                 setHasParentTrait(true)
                 setHasRoadTrait(false)
                 break
             case "Guardmouse":
-                setWises(["", ""])
+                setNbrOfWises(2)
                 setHasParentTrait(false)
                 setHasRoadTrait(false)
                 break
             case "Patrol Guard":
-                setWises(["", ""])
+                setNbrOfWises(2)
                 setHasParentTrait(false)
                 setHasRoadTrait(false)
                 break
             case "Patrol Leader":
-                setWises(["", "", ""])
+                setNbrOfWises(3)
                 setHasParentTrait(false)
                 setHasRoadTrait(true)
                 break
             case "Guard Captain":
-                setWises(["", "", "", ""])
+                setNbrOfWises(4)
                 setHasParentTrait(false)
                 setHasRoadTrait(true)
                 break
             default:
-                setWises([])
+                setNbrOfWises(0)
+                handles.setWise1("")
+                handles.setWise2("")
+                handles.setWise3("")
+                handles.setWise4("")
                 setHasParentTrait(false)
                 setHasRoadTrait(false)
         }
-        //TODO REMOVE DEBUG
-        setWises(["", ""])
-        console.log(wises.length)
-    }, [states, wises.length])
+    }, [states, handles])
 
-    return (<Row className="my-4 px-4">
-        <Col>
+    return (<><Row className="my-4 px-4">
+        <Col xs={12} md={6}>
             <h1>Wises</h1>
-            {wises.map(w =>
-                <RecruitForm
-                    //TODO setWise handle...
-                    wise />
-            )}
-            <Link to="/mg/recruit/" className="no-decoration">
-                <Button block variant="" className="mt-3 btn-red" size="lg">BACK TO START</Button>
-            </Link>
+            <RecruitForm
+                wise
+                nameChange={handles.setWise1} />
+            {nbrOfWises > 1 && <RecruitForm
+                wise
+                nameChange={handles.setWise2} />}
+            {nbrOfWises > 2 && <RecruitForm
+                wise
+                nameChange={handles.setWise3} />}
+            {nbrOfWises > 3 && <RecruitForm
+                wise
+                nameChange={handles.setWise4} />}
+
         </Col>
         <Col>
             <h1>Traits</h1>
@@ -66,33 +72,48 @@ const WisesAndTraits = ({ states, handles }) => {
                     dropdown
                     options={[defaultChoice, "Bold", "Generous", "Impetuous"]}
                     choice={states.natureTrait1}
-                    handle={handles.setNatureTrait1} />}
+                    handle={(e) => handles.setNatureTrait1(e.target.value)} />}
             {(states.nature3 === 0) &&
                 <RecruitForm
                     title="Nature Trait"
                     dropdown
                     options={[defaultChoice, "Fearless", "Brave", "Foolish"]}
                     choice={states.natureTrait2}
-                    handle={handles.setNatureTrait2} />}
+                    handle={e => handles.setNatureTrait2(e.target.value)} />}
             <RecruitForm
                 title="Born Trait"
                 dropdown
                 choice={states.bornTrait}
-                options={bornTraits} />
+                options={bornTraits}
+                handle={e => handles.setBornTrait(e.target.value)} />
             {hasParentTrait && <RecruitForm
                 title="Parent Trait"
                 dropdown
                 choice={states.parentTrait}
-                options={parentTraits} />}
+                options={parentTraits}
+                handle={e => handles.setParentTrait(e.target.value)} />}
             {hasRoadTrait && <RecruitForm
                 title="Life on the Road"
                 dropdown
-                options={roadTraits} />}
-            <Link to="/mg/recruit/names" className="no-decoration">
-                <Button block variant="" disabled={states.step < 13} className="btn-moss" size="lg" style={states.step < 13 ? { opacity: "5%" } : {}}>TO NAMES</Button>
-            </Link>
+                choice={states.roadTrait}
+                options={roadTraits}
+                handle={e => handles.setRoadTrait(e.target.value)} />}
+
         </Col>
     </Row >
+        <Row className="mb-4 px-4">
+            <Col>
+                <Link to="/mg/recruit/" className="no-decoration">
+                    <Button block variant="" className="btn-red" size="lg">BACK TO START</Button>
+                </Link>
+            </Col>
+            <Col>
+                <Link to="/mg/recruit/names" className="no-decoration">
+                    <Button block variant="" disabled={states.step < 13} className="btn-moss" size="lg" style={states.step < 13 ? { opacity: "5%" } : {}}>TO NAMES</Button>
+                </Link>
+            </Col>
+        </Row>
+    </>
     )
 }
 

@@ -12,7 +12,7 @@ const LifeExperience = ({ states, handles }) => {
         else
             setShowRank(true)
         handles.setRank(e.target.value)
-        switch (states.rank) {
+        switch (e.target.value) {
             case "Tenderpaw":
                 handles.setResources(1)
                 handles.setCircles(1)
@@ -45,6 +45,7 @@ const LifeExperience = ({ states, handles }) => {
         if (isDefault(e.target.value)) {
             handles.setHomeSkill(defaultChoice)
             handles.setHomeTrait(defaultChoice)
+            handles.setSpecialty(defaultChoice)
             handles.setStep(2)
         }
         else
@@ -133,7 +134,7 @@ const LifeExperience = ({ states, handles }) => {
                 title="Skill"
                 choice={states.talent}
                 info={skillInfo[states.talent]}
-                choiceChange={(e) => handles.setTalent(e.target.value)}
+                handle={(e) => handles.setTalent(e.target.value)}
                 options={Object.keys(skillset)}
             />
             {hasSecondTalent(states.rank) &&
@@ -142,7 +143,7 @@ const LifeExperience = ({ states, handles }) => {
                     title="Skill"
                     choice={states.secondTalent}
                     info={skillInfo[states.secondTalent]}
-                    choiceChange={(e) => handles.setSecondTalent(e.target.value)}
+                    handle={(e) => handles.setSecondTalent(e.target.value)}
                     options={Object.keys(skillset)}
                 />
             }
@@ -172,7 +173,7 @@ const LifeExperience = ({ states, handles }) => {
             <RecruitForm
                 dropdown
                 title="Skill"
-                choiceChange={(e) => handles.setHomeSkill(e.target.value)}
+                handle={(e) => handles.setHomeSkill(e.target.value)}
                 choice={states.homeSkill}
                 info={skillInfo[states.homeSkill]}
                 options={homes[states.home].skills}
@@ -181,7 +182,7 @@ const LifeExperience = ({ states, handles }) => {
             <RecruitForm
                 dropdown
                 title="Trait"
-                choiceChange={(e) => handles.setHomeTrait(e.target.value)}
+                handle={(e) => handles.setHomeTrait(e.target.value)}
                 choice={states.homeTrait}
                 info="TODO add trait info"
                 options={homes[states.home].traits}
@@ -205,7 +206,7 @@ const LifeExperience = ({ states, handles }) => {
         <RecruitForm
             dropdown
             title="Rank"
-            choiceChange={handleRank}
+            handle={handleRank}
             options={Object.keys(ranks)}
             choice={states.rank}
             info={ranks[states.rank].info}
@@ -214,7 +215,7 @@ const LifeExperience = ({ states, handles }) => {
         <RecruitForm disabled={states.step < 2}
             dropdown
             title="Home"
-            choiceChange={handleHome}
+            handle={handleHome}
             choice={states.home}
             info="Choose a mouse town or city in which your character was born. Each city has its own culture as represented by the skills and traits it provides."
             options={Object.keys(homes)}
@@ -223,7 +224,7 @@ const LifeExperience = ({ states, handles }) => {
         <RecruitForm disabled={states.step < 3}
             dropdown
             title="Family Trade"
-            choiceChange={handleParents}
+            handle={handleParents}
             choice={states.parentTrade}
             info={isDefault(states.parentTrade) ? "What was your parents' trade?" : skillInfo[states.arentTrade]}
             // How solve double text?
@@ -232,7 +233,7 @@ const LifeExperience = ({ states, handles }) => {
         <RecruitForm disabled={states.step < 4}
             dropdown
             title="Social"
-            choiceChange={handleSocial}
+            handle={handleSocial}
             choice={states.social}
             info={isDefault(states.social) ? "How do you convince people that you're right or to do what you need?" : skillInfo[states.social]}
             options={socialSkills}
@@ -240,7 +241,7 @@ const LifeExperience = ({ states, handles }) => {
         <RecruitForm disabled={states.step < 5}
             dropdown
             title="Senior Artisan"
-            choiceChange={handleArtisan}
+            handle={handleArtisan}
             choice={states.artisan}
             info={isDefault(states.artisan) ? "With whom did you apprentice for the Guard? What was that mouse's trade?" : skillInfo[states.artisan]}
             options={apprenticeSkills}
@@ -248,7 +249,7 @@ const LifeExperience = ({ states, handles }) => {
         <RecruitForm disabled={states.step < 6}
             dropdown
             title="Mentor"
-            choiceChange={handleMentor}
+            handle={handleMentor}
             options={mentorSkills}
             choice={states.mentor}
             info={isDefault(states.mentor) ? "Who is your mentor in the Mouse Guard? What did your mentor stress in training?" : skillInfo[states.mentor]}
@@ -256,14 +257,14 @@ const LifeExperience = ({ states, handles }) => {
         <RecruitForm disabled={states.step < 7}
             dropdown
             title="Friend"
-            choiceChange={handleFriend}
+            handle={handleFriend}
             choice={states.friendSkill}
             options={Object.keys(skillset)}
         />
         <RecruitForm disabled={states.step < 8}
             dropdown
             title="Enemy"
-            choiceChange={handleEnemy}
+            handle={handleEnemy}
             choice={states.enemySkill}
             options={Object.keys(skillset)}
         />
@@ -271,7 +272,7 @@ const LifeExperience = ({ states, handles }) => {
             !(states.rank === "Tenderpaw" || states.rank === defaultChoice) && <RecruitForm disabled={states.step < 9}
                 dropdown
                 title="Specialty"
-                choiceChange={handleSpecialty}
+                handle={handleSpecialty}
                 choice={states.specialty}
                 options={specialtySkills}
             />
